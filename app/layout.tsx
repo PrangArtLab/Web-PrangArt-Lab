@@ -1,37 +1,59 @@
 import type { Metadata } from 'next';
+import { DM_Sans, Instrument_Serif } from 'next/font/google';
 import './globals.css';
-import { Space_Grotesk, Manrope } from 'next/font/google';
-import { CustomCursor } from '@/components/CustomCursor';
 
-const grotesk = Space_Grotesk({
-  subsets: ['latin'],
-  variable: '--font-display',
-});
-
-const manrope = Manrope({
+const bodyFont = DM_Sans({
   subsets: ['latin'],
   variable: '--font-body',
+  display: 'swap',
+});
+
+const displayFont = DM_Sans({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+});
+
+const serifFont = Instrument_Serif({
+  subsets: ['latin'],
+  variable: '--font-serif',
+  weight: '400',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: 'PrangArt Lab | Creative Studio & Design Agency',
+  metadataBase: new URL('https://prangartlab.com'),
+  title: 'PrangArt Lab — Independent Creative Studio',
   description:
-    'PrangArt Lab crafts visual stories through branding, illustration, motion, and digital experiences for ambitious brands.',
-  keywords: ['creative studio', 'branding agency', 'illustration', 'motion graphics', 'digital content'],
+    'An independent creative studio shaping thoughtful brands and visual worlds through identity, illustration, motion, and digital experiences.',
   openGraph: {
-    title: 'PrangArt Lab',
-    description: 'We craft visual stories that move people.',
+    title: 'PrangArt Lab — Independent Creative Studio',
+    description:
+      'We make meaning visible. Thoughtful brands and visual worlds, made with curiosity and care.',
+    siteName: 'PrangArt Lab',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'PrangArt Lab independent creative studio',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'PrangArt Lab — Independent Creative Studio',
+    description: 'We make meaning visible.',
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${grotesk.variable} ${manrope.variable} bg-charcoal text-ivory antialiased`}>
-        <CustomCursor />
-        {children}
-      </body>
+    <html lang="en" className={`${bodyFont.variable} ${displayFont.variable} ${serifFont.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }
